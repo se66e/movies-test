@@ -7,6 +7,8 @@ mongoose.connect('mongodb://localhost/movie-project', {
   reconnectTries: Number.MAX_VALUE
 });
 
+Movie.collection.drop();
+
 const movies = [
   {
     title: 'Se7en',
@@ -33,3 +35,7 @@ Movie.create(movies)
   .catch((err) => {
     console.log(err)
   });
+
+
+
+module.exports = Movie;

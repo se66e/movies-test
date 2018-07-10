@@ -8,6 +8,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+// const flash = require('connect-flash');
 
 
 const app = express();
@@ -25,8 +26,8 @@ mongoose.connect('mongodb://localhost/movie-project', {
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-// const moviesRouter = require('./routes/movies');
-// const verifyRouter = require('./routes/verify')
+const moviesRouter = require('./routes/movies');
+const verifyRouter = require('./routes/verify')
 
 
 // ------- View engine setup ------- //
@@ -45,8 +46,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-// app.use('/movies', moviesRouter);
-// app.use('/verify', verifyRouter);
+app.use('/movies', moviesRouter);
+app.use('/verify', verifyRouter);
 
 app.use(session({
   store: new MongoStore({
@@ -60,6 +61,8 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000
   }
 }));
+
+// app.use(flash());
 
 app.use((req, res, next) => {
   app.locals.currentUser = req.session.currentUser;
