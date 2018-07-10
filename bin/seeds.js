@@ -1,5 +1,7 @@
+'use strict';
+
 const mongoose = require('mongoose');
-const Movie = require('../models/movie.js');
+const Movie = require('../models/movie');
 
 mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost/movie-project', {
